@@ -1,44 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import UserItem from './UserItem';
+import Spinner from '../layout/Spinner';
 
-export class Users extends Component {
-   state = {
-      users: [
-         {
-            id: 1,
-            login: 'octocat',
-            avatar_url:
-               'https://avatars1.githubusercontent.com/u/17165079?s=460&u=80f8eca9322ce7bda796c0cc281528edba8822ef&v=4',
-            url: 'https://api.github.com/users/octocat',
-            html_url: 'https://github.com/octocat',
-         },
-         {
-            id: 2,
-            login: 'octocat',
-            avatar_url:
-               'https://avatars1.githubusercontent.com/u/17165079?s=460&u=80f8eca9322ce7bda796c0cc281528edba8822ef&v=4',
-            url: 'https://api.github.com/users/octocat',
-            html_url: 'https://github.com/octocat',
-         },
-         {
-            id: 3,
-            login: 'octocat',
-            avatar_url:
-               'https://avatars1.githubusercontent.com/u/17165079?s=460&u=80f8eca9322ce7bda796c0cc281528edba8822ef&v=4',
-            url: 'https://api.github.com/users/octocat',
-            html_url: 'https://github.com/octocat',
-         },
-      ],
-   };
-   render() {
-      return (
-         <div className='grid-3'>
-            {this.state.users.map((user) => (
-               <UserItem key={user.id} user={user} />
-            ))}
-         </div>
-      );
+import PropTypes from 'prop-types';
+const Users = ({ loading, users }) => {
+   if (loading) {
+      return <Spinner />;
    }
-}
-
+   return (
+      <div className='grid-3'>
+         {users.map((user) => (
+            <UserItem key={user.id} user={user} />
+         ))}
+      </div>
+   );
+};
+Users.propTypes = {
+   users: PropTypes.array.isRequired,
+   loading: PropTypes.bool.isRequired,
+};
 export default Users;
