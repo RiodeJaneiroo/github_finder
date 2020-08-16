@@ -10,6 +10,8 @@ import {
    GET_REPOS,
 } from '../types';
 
+let githubToken = process.env.REACT_APP_GITHUB_TOKEN;
+
 const GithubState = (props) => {
    const initialState = {
       users: [],
@@ -26,7 +28,7 @@ const GithubState = (props) => {
          `https://api.github.com/search/users?q=${text}`,
          {
             headers: {
-               Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+               Authorization: `token ${githubToken}`,
             },
          }
       );
@@ -39,7 +41,7 @@ const GithubState = (props) => {
       setLoading();
       const res = await axios.get(`https://api.github.com/users/${username}`, {
          headers: {
-            Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+            Authorization: `token ${githubToken}`,
          },
       });
       dispatch({ type: GET_USER, payload: res.data });
@@ -51,7 +53,7 @@ const GithubState = (props) => {
          `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`,
          {
             headers: {
-               Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+               Authorization: `token ${githubToken}`,
             },
          }
       );
